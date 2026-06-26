@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Furniture Sales Management System</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    :root {
+      --primary: #1a2b3d;
+      --secondary: #d4a574;
+      --light: #f8f5f0;
+      --white: #fff;
+      --gray: #666;
+      --light-gray: #f1f1f1;
+      --radius: 10px;
+      --shadow: 0 4px 12px rgba(0,0,0,0.06);
+      --transition: 0.3s ease;
+    }
+
+    body {
+      background: var(--light);
+      color: #333;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    nav {
+      background: var(--primary);
+      padding: 16px 0;
+      position: sticky;
+      top: 0;
+      z-index: 99;
+    }
+
+    .nav-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      color: var(--white);
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--white);
+      text-decoration: none;
+      font-size: 15px;
+      transition: var(--transition);
+    }
+
+    .nav-links a:hover {
+      color: var(--secondary);
+    }
+
+    .hero {
+      text-align: center;
+      padding: 60px 0 40px;
+    }
+
+    .hero h1 {
+      font-size: 32px;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      color: var(--gray);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .section {
+      margin-bottom: 60px;
+    }
+
+    .section-title {
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 24px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--secondary);
+      display: inline-block;
+    }
+
+    .furniture-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    }
+
+    .card-img {
+      /*width: 100%;*/
+      /*height: 180px;*/
+      /*object-fit: cover;*/
+      /*background: #eae2d8;*/
+      /*display: grid;*/
+      /*place-items: center;*/
+      /*font-size: 40px;*/
+      /*color: var(--primary);*/
+      height: 180px;
+      overflow: hidden; /* 防止图片溢出容器 */
+    }
+
+    .card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* 保持比例，填满容器，超出部分裁剪 */
+    }
+
+    .card-body {
+      padding: 20px;
+    }
+
+    .card-title {
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--primary);
+    }
+
+    .card-desc {
+      font-size: 14px;
+      color: var(--gray);
+      height: 44px;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+
+    .card-price {
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--secondary);
+      margin-bottom: 16px;
+    }
+
+    .card-btn {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background: var(--primary);
+      color: var(--white);
+      text-align: center;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: var(--transition);
+      font-size: 15px;
+    }
+
+    .card-btn:hover {
+      background: var(--secondary);
+      color: var(--primary);
+    }
+
+    .form-box {
+      background: var(--white);
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 30px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .form-title {
+      font-size: 20px;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 24px;
+      color: var(--primary);
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 15px;
+      background: var(--light-gray);
+      transition: var(--transition);
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--secondary);
+      background: var(--white);
+    }
+
+    textarea.form-control {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 13px;
+      background: var(--primary);
+      color: var(--white);
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .btn-submit:hover {
+      background: var(--secondary);
+      color: #111;
+    }
+
+    .admin-box {
+      border: 1px solid var(--primary);
+    }
+
+    @media (max-width: 768px) {
+      .nav-inner {
+        flex-direction: column;
+        gap: 12px;
+      }
+      .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 14px;
+      }
+      .hero h1 {
+        font-size: 26px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="container nav-inner">
+    <div class="logo">Furniture System</div>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#furniture">Furniture</a></li>
+      <li><a href="#login">Login</a></li>
+      <li><a href="#register">Register</a></li>
+      <li><a href="#order">Order</a></li>
+      <li><a href="#admin">Admin</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+  <section class="hero" id="home">
+    <h1>Furniture Sales & Order Management System</h1>
+    <p>Browse furniture, customer register & login, place orders, admin manage orders & inventory</p>
+  </section>
+
+  <!-- Furniture List -->
+  <section class="section" id="furniture">
+    <h2 class="section-title">Furniture List</h2>
+    <div class="furniture-grid">
+
+      <div class="card">
+        <div class="card-img">
+          <img src="Sample_furntiure_images/1.png" alt="Oak Dining Chair">
+        </div>
+        <div class="card-body">
+          <h3 class="card-title">Oak Dining Chair 🪑</h3>
+          <p class="card-desc">Classic style dining chair made of solid oak.</p>
+          <div class="card-price">¥450.00</div>
+          <button class="card-btn">Add to Order</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img">
+          <img src="Sample_furntiure_images/2.png" alt="Large Dining Table">
+        </div>
+        <div class="card-body">
+          <h3 class="card-title">Large Dining Table 🪑</h3>
+          <p class="card-desc">6-seater dining table, perfect for families.</p>
+          <div class="card-price">¥2500.00</div>
+          <button class="card-btn">Add to Order</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img">
+          <img src="Sample_furntiure_images/3.png" alt="3-Seater Fabric Sofa">
+        </div>
+        <div class="card-body">
+          <h3 class="card-title">3-Seater Fabric Sofa 🛋️</h3>
+          <p class="card-desc">Comfortable grey fabric sofa with foam filling.</p>
+          <div class="card-price">¥3800.00</div>
+          <button class="card-btn">Add to Order</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img"><img src="Sample_furntiure_images/4.png" alt="Wooden Wardrobe">
+        </div>
+        <div class="card-body">
+          <h3 class="card-title">Wooden Wardrobe ️🗄️</h3>
+          <p class="card-desc">Double door wardrobe with hanging space.</p>
+          <div class="card-price">¥1800.00</div>
+          <button class="card-btn">Add to Order</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img"><img src="Sample_furntiure_images/5.png" alt="Industrial Bookshelf">
+        </div>
+        <div class="card-body">
+          <h3 class="card-title">Industrial Bookshelf 📚</h3>
+          <p class="card-desc">Modern style bookshelf with steel frame.</p>
+          <div class="card-price">¥1200.00</div>
+          <button class="card-btn">Add to Order</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-img"><img src="Sample_furntiure_images/6.png" alt="Queen Size Bed Frame">
+        </div>
+        <div class="card-body">
+          <h3 class="card-title">Queen Size Bed Frame 🛏️</h3>
+          <p class="card-desc">Sturdy bed frame for queen size mattress.</p>
+          <div class="card-price">¥2200.00</div>
+          <button class="card-btn">Add to Order</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Customer Login -->
+  <section class="section" id="login">
+    <h2 class="section-title">Customer Login</h2>
+    <div class="form-box">
+      <h3 class="form-title">Sign In</h3>
+      <form action="login.php" method="post">
+        <div class="form-group">
+          <label>Customer ID / Phone</label>
+          <input type="text" class="form-control" name="cid" required>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" class="form-control" name="cpassword" required>
+        </div>
+        <button type="submit" class="btn-submit">Login</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Customer Register -->
+  <section class="section" id="register">
+    <h2 class="section-title">Customer Registration</h2>
+    <div class="form-box">
+      <h3 class="form-title">Create New Account</h3>
+      <form action="register.php" method="post">
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" class="form-control" name="cname" required>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" class="form-control" name="cpassword" required>
+        </div>
+        <div class="form-group">
+          <label>Telephone</label>
+          <input type="text" class="form-control" name="ctel" required>
+        </div>
+        <div class="form-group">
+          <label>Address</label>
+          <textarea class="form-control" name="caddr" required></textarea>
+        </div>
+        <div class="form-group">
+          <label>Company (Optional)</label>
+          <input type="text" class="form-control" name="company">
+        </div>
+        <button type="submit" class="btn-submit">Register</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Place Order -->
+  <section class="section" id="order">
+    <h2 class="section-title">Place New Order</h2>
+    <div class="form-box">
+      <h3 class="form-title">Order Details</h3>
+      <form action="order.php" method="post">
+        <div class="form-group">
+          <label>Select Furniture</label>
+          <select class="form-control" name="fid" required>
+            <option value="1">Oak Dining Chair - ¥450</option>
+            <option value="2">Large Dining Table - ¥2500</option>
+            <option value="3">3-Seater Fabric Sofa - ¥3800</option>
+            <option value="4">Wooden Wardrobe - ¥1800</option>
+            <option value="5">Industrial Bookshelf - ¥1200</option>
+            <option value="6">Queen Size Bed Frame - ¥2200</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Quantity</label>
+          <input type="number" class="form-control" name="oqty" min="1" value="1" required>
+        </div>
+        <div class="form-group">
+          <label>Delivery Address</label>
+          <textarea class="form-control" name="odeliveraddress" required></textarea>
+        </div>
+        <div class="form-group">
+          <label>Delivery Date</label>
+          <input type="datetime-local" class="form-control" name="odeliverydate" required>
+        </div>
+        <button type="submit" class="btn-submit">Submit Order</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Admin Login -->
+  <section class="section" id="admin">
+    <h2 class="section-title">Admin Login</h2>
+    <div class="form-box admin-box">
+      <h3 class="form-title">Staff Portal</h3>
+      <form action="admin.php" method="post">
+        <div class="form-group">
+          <label>Staff ID</label>
+          <input type="text" class="form-control" name="sid" required>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" class="form-control" name="spassword" required>
+        </div>
+        <button type="submit" class="btn-submit">Login as Admin</button>
+      </form>
+    </div>
+  </section>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,355 @@
+/* ================================
+   Global Styles - style.css
+   ================================ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+:root {
+  --primary: #1a2b3d;
+  --secondary: #d4a574;
+  --light: #f8f5f0;
+  --white: #fff;
+  --gray: #666;
+  --light-gray: #f1f1f1;
+  --radius: 10px;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  --transition: 0.3s ease;
+}
+
+body {
+  background: var(--light);
+  color: #333;
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* 🔝 Navigation */
+nav {
+  background: var(--primary);
+  padding: 16px 0;
+  position: sticky;
+  top: 0;
+  z-index: 99;
+}
+
+.nav-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  color: var(--white);
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.nav-links {
+  display: flex;
+  gap: 24px;
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--white);
+  text-decoration: none;
+  font-size: 15px;
+  transition: var(--transition);
+}
+
+.nav-links a:hover {
+  color: var(--secondary);
+}
+
+/* 🌟 Hero Section */
+.hero {
+  text-align: center;
+  padding: 60px 0 40px;
+}
+
+.hero h1 {
+  font-size: 32px;
+  color: var(--primary);
+  margin-bottom: 10px;
+}
+
+.hero p {
+  color: var(--gray);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* 📦 Sections */
+.section {
+  margin-bottom: 60px;
+}
+
+.section-title {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 24px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--secondary);
+  display: inline-block;
+}
+
+/* 🪑 Furniture Grid */
+.furniture-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.card {
+  background: var(--white);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.card-body select.form-control {
+  margin-bottom: 16px;
+}
+
+.card-img {
+  height: 180px;
+  overflow: hidden;
+}
+
+.card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.card-title {
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--primary);
+}
+
+.card-desc {
+  font-size: 14px;
+  color: var(--gray);
+  height: 44px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.card-price {
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--secondary);
+  margin-bottom: 16px;
+}
+
+.card-btn {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background: var(--primary);
+  color: var(--white);
+  text-align: center;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: var(--transition);
+  font-size: 15px;
+}
+
+.card-btn:hover {
+  background: var(--secondary);
+  color: var(--primary);
+}
+
+
+/* Cart grid adapts to page content width and centers the card */
+.cart-grid {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  padding: 12px 0;
+}
+
+/* 控制卡片宽度以匹配页面主内容区（可根据项目主容器宽度调整 max-width） */
+.cart-card {
+  width: 100%;
+  max-width: 760px;
+  /* 根据页面主内容宽度调整（例如 720~960px） */
+  box-sizing: border-box;
+}
+
+/* 让按钮在卡片内靠右或居中（按需选择） */
+.cart-card .card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cart-card .card-btn {
+  align-self: flex-end;
+  /* 右对齐 */
+  /* 如果想居中改为: align-self: center; */
+}
+
+/* 响应式：窄屏时卡片占满宽度并保持内边距 */
+@media (max-width: 640px) {
+  .cart-card {
+    padding-left: 12px;
+    padding-right: 12px;
+    max-width: 100%;
+  }
+
+  .cart-card .card-btn {
+    align-self: stretch;
+    /* 手机上按钮占满宽度 */
+    text-align: center;
+  }
+}
+
+
+/* 📝 Forms */
+.form-box {
+  background: var(--white);
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 30px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.form-title {
+  font-size: 20px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 24px;
+  color: var(--primary);
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.form-control {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 15px;
+  background: var(--light-gray);
+  transition: var(--transition);
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--secondary);
+  background: var(--white);
+}
+
+textarea.form-control {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.btn-submit {
+  width: 100%;
+  padding: 13px;
+  background: var(--primary);
+  color: var(--white);
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-submit:hover {
+  background: var(--secondary);
+  color: #111;
+}
+
+.admin-box {
+  border: 1px solid var(--primary);
+}
+
+/* Zoom 部分 */
+
+.zoom-container {
+  position: relative;
+  overflow: hidden;
+  height: 180px;
+}
+
+.zoom-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.zoom-container.active .zoom-img {
+  transform: scale(2);
+  /* 放大倍数 */
+  cursor: crosshair;
+}
+
+.zoom-btn {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  padding: 6px 10px;
+  font-size: 12px;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* 📱 Responsive */
+@media (max-width: 768px) {
+  .nav-inner {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .nav-links {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+  }
+
+  .hero h1 {
+    font-size: 26px;
+  }
+}
