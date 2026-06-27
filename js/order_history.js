@@ -1,4 +1,5 @@
 /* js/order_history.js — 订单历史 AJAX 删单 */
+
 (function () {
     function showMsg(text, ok) {
         const el = document.getElementById('history-msg')

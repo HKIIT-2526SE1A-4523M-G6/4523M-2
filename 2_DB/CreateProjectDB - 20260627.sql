@@ -11,7 +11,7 @@ USE `ProjectDB`;
 
 DROP TABLE IF EXISTS FurnitureMaterial;
 DROP TABLE IF EXISTS OrderFurniture;
-DROP TABLE IF EXISTS `Order`; -- 加上反引號 避免与保留字冲突
+DROP TABLE IF EXISTS customerOrder; -- 加上反引號 避免与保留字冲突(问题是加上反引号，php代码那边会报错，真傻)
 DROP TABLE IF EXISTS Staff;
 DROP TABLE IF EXISTS FurnitureOption;
 DROP TABLE IF EXISTS Furniture;
@@ -119,9 +119,9 @@ INSERT INTO Staff (staffPassword, staffName, staffRole, staffNumber, staffEmail)
 ('admin',     'Admin',      'Administrator', '12345678', 'staff@furnipro.com'),
 ('staff1234', 'staff_demo', 'Staff',         '00000002', 'staff@furnipro.com');
 
-/*Data for the table `Order` */
+/*Data for the table `customerOrder` */
 
-CREATE TABLE `Order` ( -- 加上反引號 避免与保留字冲突
+CREATE TABLE customerOrder ( -- 加上反引號 避免与保留字冲突(问题是加上反引号，php代码那边会报错，真傻)
     orderID INT NOT NULL AUTO_INCREMENT,
     orderDate DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     orderTotalAmount DECIMAL(10, 2) NOT NULL,
@@ -140,7 +140,7 @@ CREATE TABLE OrderFurniture (
     furnitureID INT NOT NULL,
     orderQty INT NOT NULL,
     PRIMARY KEY (orderID, furnitureID),
-    FOREIGN KEY (orderID) REFERENCES `Order` (orderID), -- 加上反引號 避免与保留字冲突
+    FOREIGN KEY (orderID) REFERENCES customerOrder (orderID), -- 加上反引號 避免与保留字冲突(问题是加上反引号，php代码那边会报错，真傻)
     FOREIGN KEY (furnitureID) REFERENCES Furniture(furnitureID)
 ) ENGINE=InnoDB;
 

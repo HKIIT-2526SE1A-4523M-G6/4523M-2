@@ -76,8 +76,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $isCustomer) {
                 }
             }
 
-            // 插入主订单表 `Order` (默认状态: 1 Pending)
-            $insertOrder = "INSERT INTO `Order` (orderDate, orderTotalAmount, customerID, orderDeliveryDate, orderDeliveryAddress, orderStatu) 
+            // 插入主订单表 customerOrder (默认状态: 1 Pending)
+            $insertOrder = "INSERT INTO customerOrder (orderDate, orderTotalAmount, customerID, orderDeliveryDate, orderDeliveryAddress, orderStatu) 
                             VALUES (CURRENT_TIMESTAMP, $totalAmount, $cid, '$date', '$address', 1)";
 
             if (mysqli_query($conn, $insertOrder)) {
