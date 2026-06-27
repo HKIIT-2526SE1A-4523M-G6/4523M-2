@@ -34,7 +34,7 @@ function renderCart () {
           <h3 class="card-title">Your Cart</h3>
           <p class="card-desc">View your selected furniture and proceed to order.</p>
           <div class="card-price">Ready to checkout</div>
-          <a href="index.php" class="card-btn">Select Item</a>
+          <a href="../index.php" class="card-btn">Select Item</a>
         </div>
       </div>
     `
@@ -49,7 +49,7 @@ function renderCart () {
       <div class="card-body">
         <h3 class="card-title">${item.name}</h3>
         <p class="card-desc">Model: ${item.model}</p>
-        <div class="card-price">¥${item.price.toFixed(2)} × ${item.qty}</div>
+        <div class="card-price">$${item.price.toFixed(2)} × ${item.qty}</div>
         <button class="card-btn remove-btn">Remove</button>
       </div>
     `

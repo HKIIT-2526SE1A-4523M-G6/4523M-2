@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
       <div class="card-body">
         <h3 class="card-title">${item.name}</h3>
         <p class="card-desc">Model: ${item.model}</p>
-        <div class="card-price">¥${item.price.toFixed(2)} × ${item.qty}</div>
+        <div class="card-price">$${item.price.toFixed(2)} × ${item.qty}</div>
       </div>
     `
     cartList.appendChild(card)
