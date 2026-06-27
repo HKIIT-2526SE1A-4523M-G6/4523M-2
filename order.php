@@ -7,12 +7,6 @@ if (!isset($conn) && isset($GLOBALS['conn'])) {
     $conn = $GLOBALS['conn'];
 }
 
-// // 门禁安全检查：只有客户可以下单
-// if (!isset($_SESSION['customerID']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'customer') {
-//     header("Location: login.php");
-//     exit();
-// }
-
 $isCustomer = isset($_SESSION['customerID']) && isset($_SESSION['role']) && $_SESSION['role'] === 'customer';
 $isAdmin    = isset($_SESSION['staffID'])    && isset($_SESSION['role']) && $_SESSION['role'] === 'admin';
 
@@ -127,18 +121,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $isCustomer) {
             <div class="logo">Furniture System</div>
             <ul class="nav-links">
                 <li><a href="index.php">Home</a></li>
-<!--                --><?php //if (isset($_SESSION['role'])): ?>
-<!--                    --><?php //if ($_SESSION['role'] == 'admin'): ?>
-<!--                        <li><a href="admin.php">Admin Panel</a></li>-->
-<!--                    --><?php //else: ?>
-<!--                        <li><a href="order.php">Cart</a></li>-->
-<!--                    --><?php //endif; ?>
-<!--                    <li><a href="logout.php">Logout (--><?php //echo htmlspecialchars(isset($_SESSION['fullName']) ? $_SESSION['fullName'] : $_SESSION['staffName']); ?><!--)</a></li>-->
-<!--                --><?php //else: ?>
-<!--                    <li><a href="login.php">Login</a></li>-->
-<!--                    <li><a href="register.php">Register</a></li>-->
-<!--                    <li><a href="order.php">Cart</a></li>-->
-<!--                --><?php //endif; ?>
                 <?php if ($isAdmin): ?>
                     <li><a href="admin.php">Admin Panel</a></li>
                     <li><a href="logout.php">Logout (<?php echo htmlspecialchars($_SESSION['staffName']); ?>)</a></li>
@@ -157,9 +139,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $isCustomer) {
     </nav>
 
     <div class="container">
-<!--        <section class="section" id="order">-->
-<!--            <h2 class="section-title">Place New Order</h2>-->
-<!--            <div class="form-box">-->
+
         <section class="section" id="order">
             <h2 class="section-title">Place New Order</h2>
             <?php if (!$isCustomer): ?>
