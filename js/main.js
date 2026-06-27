@@ -17,11 +17,16 @@ function renderOrderOptions (data) {
 
 // 页面初始化
 document.addEventListener("DOMContentLoaded", () => {
-  // 渲染商品
-  if (typeof MOCK_DATA !== "undefined" && MOCK_DATA.products) {
-    renderProducts(MOCK_DATA.products)   // 来自 product.js
-    renderOrderOptions(MOCK_DATA.products) // 仍在 main.js 或单独 order.js
-  }
+  // 渲染商品  （假数据）
+  // if (typeof MOCK_DATA !== "undefined" && MOCK_DATA.products) {
+  //   renderProducts(MOCK_DATA.products)   // 来自 product.js
+  //   renderOrderOptions(MOCK_DATA.products) // 仍在 main.js 或单独 order.js
+  // }
+
+if (typeof DB_PRODUCTS !== "undefined" && DB_PRODUCTS.length > 0) {
+      renderProducts(DB_PRODUCTS)
+      // order.php 的下拉由 PHP 直接渲染，此处无需调用 renderOrderOptions
+    }
 
   // 状态检查：用户角色
   const role = localStorage.getItem("user_role") || "guest"
