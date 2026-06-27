@@ -46,9 +46,7 @@ $result = mysqli_query($conn, $sql);
                     <?php if ($_SESSION['role'] == 'admin'): ?>
                         <li><a href="admin.php">Admin Panel</a></li>
                     <?php else: ?>
-                            <li><a href="order.php">Cart</a></li>
-                        <li><a href="order_history.php">My Orders</a></li>
-                        <li><a href="profile.php">Profile</a></li>
+                        <li><a href="order.php">Cart</a></li>
                     <?php endif; ?>
                     <li><a href="logout.php">Logout (<?php echo htmlspecialchars(isset($_SESSION['fullName']) ? $_SESSION['fullName'] : $_SESSION['staffName']); ?>)</a></li>
                 <?php else: ?>
