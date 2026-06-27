@@ -1,3 +1,16 @@
+# 更新日志
+
+---
+
+20260627<br>
+<br>
+1、完成对data-mock.js假数据的迁移，全部数据整合到sql表中<br>
+2、完成html的功能的完整迁移<br>
+3、完成既有页面下的BUG修复<br>
+
+
+---
+
 # Furniture Sales & Order Management System
 
 本项目是一个基于 **HTML + CSS + JavaScript (前端模拟数据)** 的家具销售与订单管理系统示范。  

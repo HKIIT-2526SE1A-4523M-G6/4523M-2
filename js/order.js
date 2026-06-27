@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // 默认数量显示所有商品总数
   qtyInput.value = cart.reduce((sum, item) => sum + item.qty, 0)
 
+  let currentSelection = "total"
 
 
   // 如果购物车为空，提示用户
@@ -49,11 +50,15 @@ document.addEventListener("DOMContentLoaded", () => {
   const total = cart.reduce((sum, item) => sum + item.price * item.qty, 0)
   const totalCard = document.createElement("div")
   totalCard.className = "card"
+  totalCard.classList.add("total-card")
   totalCard.innerHTML = `
     <div class="card-body">
       <h3 class="card-title">Total</h3>
       <p class="card-desc">Summary of your cart</p>
-      <div class="card-price">¥${total.toFixed(2)}</div>
+      <div class="card-price">
+        <span class="total-price">$${total.toFixed(2)}</span>
+        <button class="card-btn clean-btn">Clean Cart</button>
+      </div>
     </div>
   `
   cartList.appendChild(totalCard)
@@ -150,35 +155,34 @@ document.addEventListener("DOMContentLoaded", () => {
     `
 
     // 数量编辑逻辑
-    const qtySpan = card.querySelector(".qty")
     card.querySelector(".minus-btn").addEventListener("click", () => {
       if (item.qty > 1) {
         item.qty -= 1
-        qtySpan.textContent = item.qty
-        qtyInput.value = item.qty
         localStorage.setItem("cart", JSON.stringify(cart))
+        renderSelectedItem(currentSelection)
       }
     })
     card.querySelector(".plus-btn").addEventListener("click", () => {
       item.qty += 1
-      qtySpan.textContent = item.qty
-      qtyInput.value = item.qty
       localStorage.setItem("cart", JSON.stringify(cart))
+      renderSelectedItem(currentSelection)
     })
+
+
 
     return card
   }
 
   // 下拉框切换时渲染对应商品
   orderSelect.addEventListener("change", e => {
-    const selectedValue = e.target.value
-    if (selectedValue === "total") {
+    currentSelection = e.target.value
+    if (currentSelection === "total") {
       qtyInput.value = cart.reduce((sum, item) => sum + item.qty, 0)
     } else {
-      const selectedItem = cart.find(item => item.sku === selectedValue)
+      const selectedItem = cart.find(item => item.sku === currentSelection)
       qtyInput.value = selectedItem ? selectedItem.qty : 1
     }
-    renderSelectedItem(selectedValue)
+    renderSelectedItem(currentSelection)
   })
 
   // 初始渲染默认选项（Total）

@@ -50,10 +50,10 @@ function handleAuthNav (role) {
 }
 
 // 页面初始化时检查登录状态
-// document.addEventListener("DOMContentLoaded", () => {
-//   const role = localStorage.getItem("user_role") || "guest"
-//   handleAuthNav(role)
-// })
+document.addEventListener("DOMContentLoaded", () => {
+  const role = localStorage.getItem("user_role") || "guest"
+  handleAuthNav(role)
+})
 
 
 // 标签切换逻辑

@@ -70,7 +70,7 @@ function renderCart () {
       <h3 class="card-title">Total</h3>
       <p class="card-desc">Summary of your cart</p>
       <div class="card-price">¥${total.toFixed(2)}</div>
-      <a href="order.html" class="card-btn">Go to Place Order</a>
+      <a href="order.php" class="card-btn">Go to 🛒</a>
     </div>
   `
   cartGrid.appendChild(totalCard)

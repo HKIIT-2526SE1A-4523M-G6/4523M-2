@@ -10,10 +10,9 @@ CREATE DATABASE IF NOT EXISTS `ProjectDB` DEFAULT CHARACTER SET utf8mb4 COLLATE 
 USE `ProjectDB`;
 
 DROP TABLE IF EXISTS FurnitureMaterial;
-DROP TABLE IF EXISTS OrderFurniture;
 DROP TABLE IF EXISTS `Order`; -- 加上反引號 避免与保留字冲突
+DROP TABLE IF EXISTS OrderFurniture;
 DROP TABLE IF EXISTS Staff;
-DROP TABLE IF EXISTS FurnitureOption;
 DROP TABLE IF EXISTS Furniture;
 DROP TABLE IF EXISTS Customer;
 DROP TABLE IF EXISTS Material;
@@ -36,42 +35,57 @@ INSERT INTO Material (materialName, materialPhysicalQty, materialUnit) VALUES
 /*Data for the table `Customer` */
 
 CREATE TABLE Customer (
-    customerID       BIGINT       NOT NULL AUTO_INCREMENT,
-    fullName         VARCHAR(255) NOT NULL,
+    customerID BIGINT NOT NULL AUTO_INCREMENT,
+    fullName VARCHAR(255) NOT NULL,
     customerPassword VARCHAR(255) NOT NULL,
-    customerNumber   VARCHAR(20)  NOT NULL,
-    customerAddress  VARCHAR(255) NOT NULL,
-    customerName     VARCHAR(255) DEFAULT NULL,
-    customerEmail    VARCHAR(255) DEFAULT NULL,
+    customerNumber VARCHAR(20) NOT NULL,
+    customerAddress VARCHAR(255) NOT NULL,
+    customerName VARCHAR(255),
     PRIMARY KEY (customerID)
-) ENGINE=InnoDB AUTO_INCREMENT = 250999001;
-INSERT INTO Customer (customerPassword, customerName, fullName, customerNumber, customerEmail) VALUES 
-('111111',    'Buyer',         'My Name 666', '87654321', 'customer@furnipro.com'),
-('cust1234',  'customer_demo', 'Customer Demo', '00000001', 'customer@furnipro.com');
+) ENGINE=InnoDB AUTO_INCREMENT = 250999001; -- 在這裡指定起始值
+INSERT INTO Customer (customerPassword, customerName, fullName, customerNumber) VALUES 
+('111111', 'Buyer', 'My Name 666', '87654321');
 
 /*Data for the table `Furniture` */
 
 CREATE TABLE Furniture (
-    furnitureID          INT            NOT NULL AUTO_INCREMENT,
-    furnitureSKU         VARCHAR(20)    DEFAULT NULL,
-    furnitureName        VARCHAR(255)   NOT NULL,
-    furnitureModel       VARCHAR(50)    DEFAULT NULL,
-    furnitureDescription VARCHAR(255)   NOT NULL,
-    furniturePrice       DECIMAL(10, 2) NOT NULL,
-    furnitureImage       VARCHAR(255)   DEFAULT NULL,
-    furnitureCategory    VARCHAR(100)   DEFAULT NULL,
-    furnitureStockStatus INT            NOT NULL DEFAULT 1, /* 1=in-stock, 2=low-stock, 3=out-of-stock */
+    furnitureID INT NOT NULL AUTO_INCREMENT,
+    furnitureName VARCHAR(255) NOT NULL,
+    furnitureDescription VARCHAR(255) NOT NULL,
+    furniturePrice DECIMAL(10, 2) NOT NULL,
     PRIMARY KEY (furnitureID)
 ) ENGINE=InnoDB;
+INSERT INTO Furniture (furnitureName, furnitureDescription, furniturePrice) VALUES 
+('Oak Dining Chair', 'Classic style dining chair made of solid oak.', 450.00),     -- furnitureID = 1
+('Large Dining Table', '6-seater dining table, perfect for families.', 2500.00),   -- furnitureID = 2
+('3-Seater Fabric Sofa', 'Comfortable grey fabric sofa with foam filling.', 3800.00), -- furnitureID = 3
+('Wooden Wardrobe', 'Double door wardrobe with hanging space.', 1800.00),          -- furnitureID = 4
+('Industrial Bookshelf', 'Modern style bookshelf with steel frame.', 1200.00),     -- furnitureID = 5
+('Queen Size Bed Frame', 'Sturdy bed frame for queen size mattress.', 2200.00);    -- furnitureID = 6
 
-INSERT INTO Furniture (furnitureSKU, furnitureName, furnitureModel, furnitureDescription, furniturePrice, furnitureImage, furnitureCategory, furnitureStockStatus) VALUES
-('FP-001', 'Oak Dining Chair',     'DC-101', 'Classic style dining chair made of solid oak.',        450.00,  '1.png', 'Dining',      1),  -- furnitureID = 1
-('FP-002', 'Large Dining Table',   'DT-202', '6-seater dining table, perfect for families.',         2500.00, '2.png', 'Dining',      1),  -- furnitureID = 2
-('FP-003', '3-Seater Fabric Sofa', 'SF-303', 'Comfortable grey fabric sofa with foam filling.',      3800.00, '3.png', 'Living Room', 2),  -- furnitureID = 3 (low-stock，对应mock的low-stock)
-('FP-004', 'Wooden Wardrobe',      'WW-404', 'Double door wardrobe with hanging space.',             1800.00, '4.png', 'Bedroom',     1),  -- furnitureID = 4
-('FP-005', 'Industrial Bookshelf', 'BS-505', 'Modern style bookshelf with steel frame.',             1200.00, '5.png', 'Study',       1),  -- furnitureID = 5
-('FP-006', 'Queen Size Bed Frame', 'BF-606', 'Sturdy bed frame for queen size mattress.',            2200.00, '6.png', 'Bedroom',     1);  -- furnitureID = 6
+USE `ProjectDB`;
 
+-- 1. 为新版家具表 (Furniture) 补上一个 furnitureImage 字段（仅用来存放纯文件名，不用来存死路径）
+ALTER TABLE `Furniture` ADD COLUMN `furnitureImage` VARCHAR(255) DEFAULT NULL AFTER `furniturePrice`;
+
+-- 2. 顺便更新一下数据，把图片纯文件名塞进去（1.png, 2.png...）
+UPDATE `Furniture` SET `furnitureImage` = '1.png' WHERE `furnitureID` = 1;
+UPDATE `Furniture` SET `furnitureImage` = '2.png' WHERE `furnitureID` = 2;
+UPDATE `Furniture` SET `furnitureImage` = '3.png' WHERE `furnitureID` = 3;
+UPDATE `Furniture` SET `furnitureImage` = '4.png' WHERE `furnitureID` = 4;
+UPDATE `Furniture` SET `furnitureImage` = '5.png' WHERE `furnitureID` = 5;
+UPDATE `Furniture` SET `furnitureImage` = '6.png' WHERE `furnitureID` = 6;
+
+ALTER TABLE `Furniture`
+  ADD COLUMN `furnitureSKU`   VARCHAR(20)  DEFAULT NULL AFTER `furnitureID`,
+  ADD COLUMN `furnitureModel` VARCHAR(50)  DEFAULT NULL AFTER `furnitureName`;
+
+UPDATE `Furniture` SET `furnitureSKU` = 'FP-001', `furnitureModel` = 'DC-101' WHERE `furnitureID` = 1;
+UPDATE `Furniture` SET `furnitureSKU` = 'FP-002', `furnitureModel` = 'DT-202' WHERE `furnitureID` = 2;
+UPDATE `Furniture` SET `furnitureSKU` = 'FP-003', `furnitureModel` = 'SF-303' WHERE `furnitureID` = 3;
+UPDATE `Furniture` SET `furnitureSKU` = 'FP-004', `furnitureModel` = 'WW-404' WHERE `furnitureID` = 4;
+UPDATE `Furniture` SET `furnitureSKU` = 'FP-005', `furnitureModel` = 'BS-505' WHERE `furnitureID` = 5;
+UPDATE `Furniture` SET `furnitureSKU` = 'FP-006', `furnitureModel` = 'BF-606' WHERE `furnitureID` = 6;
 
 /*Data for the table `FurnitureOption ` */
 
@@ -107,17 +121,15 @@ INSERT INTO FurnitureOption (furnitureID, optionColor, optionMaterial) VALUES
 /*Data for the table `Staff` */
 
 CREATE TABLE Staff (
-    staffID       BIGINT       NOT NULL AUTO_INCREMENT,
+    staffID BIGINT NOT NULL AUTO_INCREMENT,
     staffPassword VARCHAR(255) NOT NULL,
-    staffName     VARCHAR(255) NOT NULL,
-    staffRole     VARCHAR(50)  NOT NULL,
-    staffNumber   VARCHAR(20)  NOT NULL,
-    staffEmail    VARCHAR(255) DEFAULT NULL,
+    staffName VARCHAR(255) NOT NULL,
+    staffRole VARCHAR(50) NOT NULL,
+    staffNumber VARCHAR(20) NOT NULL,
     PRIMARY KEY (staffID)
-) ENGINE=InnoDB AUTO_INCREMENT = 250111001;
-INSERT INTO Staff (staffPassword, staffName, staffRole, staffNumber, staffEmail) VALUES 
-('admin',     'Admin',      'Administrator', '12345678', 'staff@furnipro.com'),
-('staff1234', 'staff_demo', 'Staff',         '00000002', 'staff@furnipro.com');
+) ENGINE=InnoDB AUTO_INCREMENT = 250111001; -- 在這裡指定起始值
+INSERT INTO Staff (staffPassword, staffName, staffRole, staffNumber) VALUES 
+('admin', 'Admin', 'Administrator', '12345678');
 
 /*Data for the table `Order` */
 

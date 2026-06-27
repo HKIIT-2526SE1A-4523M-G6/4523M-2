@@ -24,9 +24,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($check_res && mysqli_num_rows($check_res) > 0) {
         $message = "<div style='color:red; text-align:center; margin-bottom:15px; font-weight:bold;'>Registration Failed: Telephone number already registered.</div>";
     } else {
-        // 【已对齐新版字段】：写入新版字段名 fullName, customerPassword, customerNumber, customerAddress, companyName
-        $insert_sql = "INSERT INTO Customer (fullName, customerPassword, customerNumber, customerAddress, companyName) 
-                       VALUES ('$cname', '$cpassword', '$ctel', '$caddr', '$company')";
+        // 【已对齐新版字段】：写入新版字段名 fullName, customerPassword, customerNumber, customerAddress
+        $insert_sql = "INSERT INTO Customer (fullName, customerPassword, customerNumber, customerAddress) 
+               VALUES ('$cname', '$cpassword', '$ctel', '$caddr')";
 
         if (mysqli_query($conn, $insert_sql)) {
             $message = "<div style='color:green; text-align:center; margin-bottom:15px; font-weight:bold;'>Registration successful! <a href='login.php'>Click here to login</a></div>";
@@ -48,63 +48,63 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
 
-<nav>
-    <div class="container nav-inner">
-        <div class="logo">Furniture System</div>
-        <ul class="nav-links">
-            <li><a href="index.php">Home</a></li>
-            <?php if(isset($_SESSION['role'])): ?>
-                <!-- 已登录状态的动态导航栏 -->
-                <?php if($_SESSION['role'] == 'admin'): ?>
-                    <li><a href="admin.php">Admin Panel</a></li>
+    <nav>
+        <div class="container nav-inner">
+            <div class="logo">Furniture System</div>
+            <ul class="nav-links">
+                <li><a href="index.php">Home</a></li>
+                <?php if (isset($_SESSION['role'])): ?>
+                    <!-- 已登录状态的动态导航栏 -->
+                    <?php if ($_SESSION['role'] == 'admin'): ?>
+                        <li><a href="admin.php">Admin Panel</a></li>
+                    <?php else: ?>
+                        <li><a href="order.php">Cart</a></li>
+                    <?php endif; ?>
+                    <li><a href="logout.php">Logout (<?php echo htmlspecialchars(isset($_SESSION['fullName']) ? $_SESSION['fullName'] : (isset($_SESSION['staffName']) ? $_SESSION['staffName'] : 'User')); ?>)</a></li>
                 <?php else: ?>
+                    <!-- 未登录状态 -->
+                    <li><a href="login.php">Login</a></li>
+                    <li><a href="register.php">Register</a></li>
                     <li><a href="order.php">Cart</a></li>
                 <?php endif; ?>
-                <li><a href="logout.php">Logout (<?php echo htmlspecialchars(isset($_SESSION['fullName']) ? $_SESSION['fullName'] : (isset($_SESSION['staffName']) ? $_SESSION['staffName'] : 'User')); ?>)</a></li>
-            <?php else: ?>
-                <!-- 未登录状态 -->
-                <li><a href="login.php">Login</a></li>
-                <li><a href="register.php">Register</a></li>
-                <li><a href="order.php">Cart</a></li>
-            <?php endif; ?>
-        </ul>
-    </div>
-</nav>
-
-<div class="container">
-    <section class="section" id="register">
-        <h2 class="section-title">Customer Registration</h2>
-        <div class="form-box">
-            <h3 class="form-title">Create New Account</h3>
-
-            <?php echo $message; ?>
-
-            <form action="register.php" method="post">
-                <div class="form-group">
-                    <label>Full Name</label>
-                    <input type="text" class="form-control" name="cname" required>
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" class="form-control" name="cpassword" required>
-                </div>
-                <div class="form-group">
-                    <label>Telephone</label>
-                    <input type="text" class="form-control" name="ctel" required>
-                </div>
-                <div class="form-group">
-                    <label>Address</label>
-                    <textarea class="form-control" name="caddr" required></textarea>
-                </div>
-                <div class="form-group">
-                    <label>Company (Optional)</label>
-                    <input type="text" class="form-control" name="company">
-                </div>
-                <button type="submit" class="btn-submit">Register</button>
-            </form>
+            </ul>
         </div>
-    </section>
-</div>
+    </nav>
+
+    <div class="container">
+        <section class="section" id="register">
+            <h2 class="section-title">Customer Registration</h2>
+            <div class="form-box">
+                <h3 class="form-title">Create New Account</h3>
+
+                <?php echo $message; ?>
+
+                <form action="register.php" method="post">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" class="form-control" name="cname" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" class="form-control" name="cpassword" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Telephone</label>
+                        <input type="text" class="form-control" name="ctel" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Address</label>
+                        <textarea class="form-control" name="caddr" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Company (Optional)</label>
+                        <input type="text" class="form-control" name="company">
+                    </div>
+                    <button type="submit" class="btn-submit">Register</button>
+                </form>
+            </div>
+        </section>
+    </div>
 
 </body>
 
