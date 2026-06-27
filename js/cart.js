@@ -1,7 +1,5 @@
 // 全局购物车数组
-let cart = []
-
-
+let cart = (() => { try { return JSON.parse(localStorage.getItem('cart') || '[]') } catch (e) { return [] } })()
 
 // 封装加购物车函数
 function addToCart (product) {
@@ -85,5 +83,5 @@ function removeFromCart (sku) {
   localStorage.setItem("cart", JSON.stringify(cart))
 }
 
-
+renderCart()
 
