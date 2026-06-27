@@ -33,19 +33,19 @@ function handleAuthNav (role) {
   navLinks.innerHTML = ""
 
   // 公共导航
-  navLinks.innerHTML += `<li><a href="index.html">Home</a></li>`
+  navLinks.innerHTML += `<li><a href="index.php">Home</a></li>`
 
   if (role === "customer") {
-    navLinks.innerHTML += `<li><a href="order.html">Cart</a></li>`
-    navLinks.innerHTML += `<li><a href="login.html">Logout</a></li>`
+    navLinks.innerHTML += `<li><a href="order.php">Cart</a></li>`
+    navLinks.innerHTML += `<li><a href="login.php">Logout</a></li>`
   } else if (role === "staff") {
-    navLinks.innerHTML += `<li><a href="admin.html">Admin Panel</a></li>`
-    navLinks.innerHTML += `<li><a href="login.html">Logout</a></li>`
+    navLinks.innerHTML += `<li><a href="admin.php">Admin Panel</a></li>`
+    navLinks.innerHTML += `<li><a href="login.php">Logout</a></li>`
   } else {
     // 游客
-    navLinks.innerHTML += `<li><a href="login.html">Login</a></li>`
-    navLinks.innerHTML += `<li><a href="register.html">Register</a></li>`
-    navLinks.innerHTML += `<li><a href="order.html">Cart</a></li>`
+    navLinks.innerHTML += `<li><a href="login.php">Login</a></li>`
+    navLinks.innerHTML += `<li><a href="register.php">Register</a></li>`
+    navLinks.innerHTML += `<li><a href="order.php">Cart</a></li>`
   }
 }
 

@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (cart.length === 0) {
     formBox.innerHTML = `
       <h3 class="form-title">Order Details</h3>
-      <p>Your cart is empty. Please go back to <a href="index.html">Home</a> and add items.</p>
+      <p>Your cart is empty. Please go back to <a href="index.php">Home</a> and add items.</p>
     `
     return
   }

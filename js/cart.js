@@ -34,7 +34,7 @@ function renderCart () {
           <h3 class="card-title">Your Cart</h3>
           <p class="card-desc">View your selected furniture and proceed to order.</p>
           <div class="card-price">Ready to checkout</div>
-          <a href="index.html" class="card-btn">Select Item</a>
+          <a href="index.php" class="card-btn">Select Item</a>
         </div>
       </div>
     `

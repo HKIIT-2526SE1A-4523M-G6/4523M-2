@@ -45,9 +45,9 @@ CREATE TABLE Customer (
     customerEmail    VARCHAR(255) DEFAULT NULL,
     PRIMARY KEY (customerID)
 ) ENGINE=InnoDB AUTO_INCREMENT = 250999001;
-INSERT INTO Customer (customerPassword, customerName, fullName, customerNumber, customerEmail) VALUES 
-('111111',    'Buyer',         'My Name 666', '87654321', 'customer@furnipro.com'),
-('cust1234',  'customer_demo', 'Customer Demo', '00000001', 'customer@furnipro.com');
+INSERT INTO Customer (customerPassword, customerName, fullName, customerNumber, customerAddress, customerEmail) VALUES 
+('111111',    'Buyer',         'My Name 666',   '87654321', 'Address TBD', 'customer@furnipro.com'),
+('cust1234',  'customer_demo', 'Customer Demo', '00000001', 'Address TBD', 'customer@furnipro.com');
 
 /*Data for the table `Furniture` */
 
